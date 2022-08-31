@@ -6,7 +6,7 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.send(os.hostname(), "test CI/CD");
+    res.send(os.hostname(), "test CI/CD from local");
 });
 
 
