@@ -30,7 +30,10 @@ unit-test-job:   # This job runs in the test stage.
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  before_script:
+    - sudo chmod 666 /var/run/docker.sock
+    - sudo service docker start
   script:
     # - sudo usermod -aG docker $USER
-    - docker-compose up
+    - docker-compose up -d
     - echo "Application successfully deployed."
