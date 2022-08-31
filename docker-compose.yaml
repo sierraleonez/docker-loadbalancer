@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: nginx.Dockerfile
+    depends_on:
+      - api
+    ports:
+      - "5100:5100"
+    restart: always
+
+  api:
+    build: ./server/
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3003"
+    restart: always
+
+  db:
+    image: mysql
+    ports:
+      - "3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: test
+    volumes:
+      - "./db:/db"
+      - "./db/sql:/var/lib/mysql"
+
+  
+    
